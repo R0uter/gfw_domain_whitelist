@@ -11,8 +11,6 @@ So if you use this PAC file, you may need a proxy which not billing with flow.
 >I will write a spider that automaticly update the white list, and as you see, it is not implement yet.
 
 ## How to use 
----------
-
 
 Download the`whitelist.pac`, edit Server IP, and the type of proxy.Then change your browser's config, point to`whitelist.pac`.
 
@@ -21,19 +19,18 @@ Download the`whitelist.pac`, edit Server IP, and the type of proxy.Then change y
     Make sure change both SOCKS5 and SOCKS
 
 
-## Use script to generate the PAC file
----------
+### Use script to generate the PAC file
 
 Excute command `python main.py`.
 
 Then `whitelist.pac` will updated, before you do so, you can simply add other white domain in `lists/custom.py`. 
 
->I highly recommand you issues or pull requset your `custom.py` to me!
+>I highly recommend you issues or pull requset your `custom.py` to me!
 
 
-## Load-Balance
+### Load-Balance
 
-You can change `okToLoadBalance` value to `true` to use load balance feature, when you edit `whitelist.pac` you will found that three proxy config in there. It just first config will effact if you leave `okToLoadBalance` maintaim `false`, but if you want use load balance, you need edit all proxy row as well.
+You can change `okToLoadBalance` value to `true` to use load balance feature, when you edit `whitelist.pac` you will found that three proxy config in there. It just first config will become effective if you leave `okToLoadBalance` maintain `false`, but if you want to use load balance, you need edit all proxy row as well.
 
     "SOCKS5 127.0.0.1:1083; SOCKS 127.0.0.1:1083;",
     Different port or ip, and do not lose the comma!
@@ -44,9 +41,7 @@ As you see, `wall_proxy` is a array, you can add most ten proxy to load balance!
 There is one more thing you should know, load balance is domain-based load balance, so it would not accelorate video or download something. Also notice: do not use this feature if your proxys not speed same.
 
 
-
-
-### PAC's performance (100,000 repeat)
+PAC's performance (100,000 repeat)
 ----------------
     firefox  
     whitelist.pac 80ms 
@@ -60,7 +55,8 @@ There is one more thing you should know, load balance is domain-based load balan
     whitelist.pac 119ms  
     load balabce: whitelist.pac 120ms  
 
-base on  
+Base on 
+------------
 [breakwa11 gfw_whitelist](https://github.com/breakwa11/gfw_whitelist)  
 [n0wa11 gfw_whitelist](https://github.com/n0wa11/gfw_whitelist)  
 [clowwindy gfwlist2pac](https://github.com/clowwindy/gfwlist2pac)  
