@@ -1,12 +1,12 @@
 # GFW White List 
 
-[autoproxy.pac](https://autoproxy.org) (GFW List) is a black list that contains Internet domain  which blocked, But in order to use, user need to update the gfwlist frequently, if you not to do so, maybe you could not access some website which GFWed recently.
+[autoproxy.pac](https://autoproxy.org) (GFW List) is a black list that contains blocked Internet domain, in order to use that, you need to update the gfwlist frequently, if you not to do so, maybe you could not access some website which GFWed recently.
 
-Based on more and more website be GFWed, you need to update gfwlist every couple of hours to keep  gfwlist effective. Now it's time to use White List instead.
+Now more and more website be GFWed, you need to update gfwlist every couple of hours to keep gfwlist effective. Now it's time to use White-list instead.
 
 This PAC file use white list, which contains website can directly access. If some domain are not included, it will access through proxy.
 
-So if you use this PAC file, you may need a proxy which not billing with flow. 
+If you use this PAC file, you may need a proxy which not billing with flow. 
 
 >I will write a spider that automaticly update the white list, and as you see, it is not implement yet.
 
@@ -21,7 +21,7 @@ Download the`whitelist.pac`, edit Server IP, and the type of proxy.Then change y
 
 ### Use script to generate the PAC file
 
-Excute command `python main.py`.
+Excute command `$python main.py`.
 
 Then `whitelist.pac` will updated, before you do so, you can simply add other white domain in `lists/custom.py`. 
 
@@ -30,7 +30,7 @@ Then `whitelist.pac` will updated, before you do so, you can simply add other wh
 
 ### Load-Balance
 
-You can change `okToLoadBalance` value to `true` to use load balance feature, when you edit `whitelist.pac` you will found that three proxy config in there. It just first config will become effective if you leave `okToLoadBalance` maintain `false`, but if you want to use load balance, you need edit all proxy row as well.
+You can change `okToLoadBalance` value to `true` to use the load balance feature, when you edit `whitelist.pac` you will found three proxy config in there. Only first config will become effective if you leave `okToLoadBalance` maintain `false`, but if you want to use load balance, you need edit all proxy row as well.
 
     "SOCKS5 127.0.0.1:1083; SOCKS 127.0.0.1:1083;",
     Different port or ip, and do not lose the comma!
