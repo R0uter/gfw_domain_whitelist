@@ -6392,6 +6392,7 @@ var white_domains = {"am":{
 "slstm":1,
 "sm160":1,
 "sm597":1,
+"smartisan":1,
 "smartjx":1,
 "smecq":1,
 "smejs":1,

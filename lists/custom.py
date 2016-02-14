@@ -17,5 +17,6 @@ linuxeden.com
 cn163.net
 weiphone.net
 fengbuy.com
+smartisan.com
 """
     return set(liststr.splitlines(False))
