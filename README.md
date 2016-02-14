@@ -1,14 +1,14 @@
 # GFW White List 
 
-[autoproxy.pac](https://autoproxy.org) (GFW List) is a black list that contains blocked Internet domain, in order to use that, you need to update the gfwlist frequently, if you not to do so, maybe you could not access some website which GFWed recently.
-
-Now more and more website be GFWed, you need to update gfwlist every couple of hours to keep gfwlist effective. Now it's time to use White-list instead.
-
 This PAC file use white list, which contains website can directly access. If some domain are not included, it will access through proxy.
 
 If you use this PAC file, you may need a proxy which not billing with flow. 
 
 >I will write a spider that automaticly update the white list, and as you see, it is not implement yet.
+
+For more infomation
+-------
+Please go to [wiki](https://github.com/R0uter/gfw_whitelist/wiki)
 
 ## How to use 
 
@@ -36,7 +36,7 @@ You can change `okToLoadBalance` value to `true` to use the load balance feature
     Different port or ip, and do not lose the comma!
     
 
-As you see, `wall_proxy` is a array, you can add most ten proxy to load balance! But three is good enough.
+As you see, `wall_proxy` is an array, you can add most ten proxy to load balance! But three is good enough.
 
 There is one more thing you should know, load balance is domain-based load balance, so it would not accelorate video or download something. Also notice: do not use this feature if your proxys not speed same.
 
