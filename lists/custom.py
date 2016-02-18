@@ -18,5 +18,8 @@ cn163.net
 weiphone.net
 fengbuy.com
 smartisan.com
+cloudxns.net
+myserverhosts.com
+softaculous.com
 """
     return set(liststr.splitlines(False))
