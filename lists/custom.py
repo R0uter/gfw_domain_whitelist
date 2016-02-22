@@ -21,5 +21,8 @@ smartisan.com
 cloudxns.net
 myserverhosts.com
 softaculous.com
+0773188.com
+maorui.org
+coding.net
 """
     return set(liststr.splitlines(False))
