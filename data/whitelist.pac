@@ -1,14 +1,13 @@
 var okToLoadBalance = false;
 
-var wall_proxy = new Array( __PROXY__,
+var proxy = new Array( __PROXY__,
 "SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081;",
 "SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1082;",
 //add more proxy to loadbalance!
 "SOCKS5 127.0.0.1:1082; SOCKS 127.0.0.1:1083;");
 
-var nowall_proxy = "DIRECT;";
 var direct = "DIRECT;";
-var ip_proxy = "DIRECT;";
+
 
 /*
  * Copyright (C) 2014 breakwa11
@@ -58,43 +57,43 @@ function getProxyFromDirectIP(strIp) {
 	}
 	return ip_proxy;
 }
+
+function FindProxyForURL(url, host) {
+    var suffix;
+    var pos = host.lastIndexOf('.');
+    
+}
 function isInDomains(domain_dict, host) {
 	var suffix;
-	var pos1 = host.lastIndexOf('.');
+	var pos = host.lastIndexOf('.');
 
-	suffix = host.substring(pos1 + 1);
+	suffix = host.substring(pos + 1);
 	if (suffix == "cn") {
 		return true;
 	}
 
-	var domains = domain_dict[suffix];
-	if ( domains === undefined ) {
-		return false;
-	}
-	host = host.substring(0, pos1);
-	var pos = host.lastIndexOf('.');
-
-	while(1) {
-		if (pos <= 0) {
-			if (hasOwnProperty.call(domains, host)) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		suffix = host.substring(pos + 1);
-		if (hasOwnProperty.call(domains, suffix)) {
-			return true;
-		}
-		pos = host.lastIndexOf('.', pos - 1);
-	}
+	pos = host.lastIndexOf('.', pos - 1);
+    while(1) {
+        if (pos == -1) {
+            if (hasOwnProperty.call(domain_dict, host)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        suffix = host.substring(pos + 1);
+        if (hasOwnProperty.call(domain_dict, suffix)) {
+            return false;
+        }
+        pos = host.lastIndexOf('.', pos - 1);
+    }
 }
 function loadBalance() {
 	var random = 0;
 	while(1) {
 		random = Math.round((Math.random() * 10) - 1);
-		if (random < wall_proxy.length) {
-			return wall_proxy[random];
+		if (random < proxy.length) {
+			return proxy[random];
 		}
 	}
 }
@@ -106,12 +105,12 @@ function FindProxyForURL(url, host) {
 		return getProxyFromDirectIP(host);
 	}
 	if ( isInDomains(white_domains, host) === true ) {
-		return nowall_proxy;
+		return direct;
 	}
 	
 	if (okToLoadBalance) {
 		return loadBalance();
 	}
-	return wall_proxy[0];
+	return proxy[0];
 }
 
