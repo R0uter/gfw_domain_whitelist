@@ -24,5 +24,7 @@ softaculous.com
 0773188.com
 maorui.org
 coding.net
+u17i.com
+runoob.com
 """
     return set(liststr.splitlines(False))
