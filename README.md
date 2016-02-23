@@ -8,7 +8,7 @@ If you use this PAC file, you may need a proxy which not billing with flow.
 
 For more infomation
 -------
-Please go to [wiki](https://github.com/R0uter/gfw_whitelist/wiki)
+Please go to [WIKI](https://github.com/R0uter/gfw_whitelist/wiki)
 
 ## How to use 
 
@@ -36,31 +36,29 @@ You can change `okToLoadBalance` value to `true` to use the load balance feature
     Different port or ip, and do not lose the comma!
     
 
-As you see, `proxy` is an array, you can add most ten proxy to load balance! But three is good enough.
+As you see, `proxy` is an array, you can add most ten proxys to load balance! But three is good enough.
 
 There is one more thing you should know, load balance is domain-based load balance, so it would not accelorate video or download something. Also notice: do not use this feature if your proxys not speed same.
 
 
-PAC's performance (100,000 repeat)
+PAC performance (100,000 repeat)
 ----------------
-    firefox  
+    Firefox  
     whitelist.pac 80ms 
     load balabce: whitelist.pac 90ms
 
-    chrome  
+    Chrome  
     whitelist.pac 120ms
     load balabce: whitelist.pac 170ms
 
-    safari  
+    Safari  
     whitelist.pac 80ms  
     load balabce: whitelist.pac 84ms  
 
 Base on 
 ------------
 [breakwa11 gfw_whitelist](https://github.com/breakwa11/gfw_whitelist)  
-[n0wa11 gfw_whitelist](https://github.com/n0wa11/gfw_whitelist)  
 [clowwindy gfwlist2pac](https://github.com/clowwindy/gfwlist2pac)  
-[Leask Flora_Pac](https://github.com/Leask/Flora_Pac)
 
 ##MIT License (MIT)
 
