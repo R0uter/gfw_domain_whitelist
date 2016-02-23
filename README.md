@@ -14,7 +14,7 @@ Please go to [wiki](https://github.com/R0uter/gfw_whitelist/wiki)
 
 Download the`whitelist.pac`, edit Server IP, and the type of proxy.Then change your browser's config, point to`whitelist.pac`.
 
-	var wall_proxy = new Array( "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080;",
+	var proxy = new Array( "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080;",
 	Change the type of proxy,it also can be 'HTTPS'
     Make sure change both SOCKS5 and SOCKS
 
@@ -36,7 +36,7 @@ You can change `okToLoadBalance` value to `true` to use the load balance feature
     Different port or ip, and do not lose the comma!
     
 
-As you see, `wall_proxy` is an array, you can add most ten proxy to load balance! But three is good enough.
+As you see, `proxy` is an array, you can add most ten proxy to load balance! But three is good enough.
 
 There is one more thing you should know, load balance is domain-based load balance, so it would not accelorate video or download something. Also notice: do not use this feature if your proxys not speed same.
 
@@ -45,15 +45,15 @@ PAC's performance (100,000 repeat)
 ----------------
     firefox  
     whitelist.pac 80ms 
-    load balabce: whitelist.pac 94ms
+    load balabce: whitelist.pac 90ms
 
     chrome  
-    whitelist.pac 136ms
-    load balabce: whitelist.pac 196ms
+    whitelist.pac 120ms
+    load balabce: whitelist.pac 170ms
 
     safari  
-    whitelist.pac 119ms  
-    load balabce: whitelist.pac 120ms  
+    whitelist.pac 80ms  
+    load balabce: whitelist.pac 84ms  
 
 Base on 
 ------------
