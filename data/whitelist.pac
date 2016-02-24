@@ -10,8 +10,8 @@ var direct = "DIRECT;";
 
 
 /*
- * Copyright (C) 2014 breakwa11
- * https://github.com/breakwa11/gfw_whitelist
+ * Copyright (C) 2015 - 2016 R0uter
+ * https://github.com/R0uter/gfw_whitelist
  */
 
 var white_domains = __DOMAINS__;
@@ -83,7 +83,7 @@ function isInDomains(domain_dict, host) {
         }
         suffix = host.substring(pos + 1);
         if (hasOwnProperty.call(domain_dict, suffix)) {
-            return false;
+            return true;
         }
         pos = host.lastIndexOf('.', pos - 1);
     }
