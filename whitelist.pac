@@ -10,8 +10,8 @@ var direct = "DIRECT;";
 
 
 /*
- * Copyright (C) 2014 breakwa11
- * https://github.com/breakwa11/gfw_whitelist
+ * Copyright (C) 2015 - 2016 R0uter
+ * https://github.com/R0uter/gfw_whitelist
  */
 
 var white_domains = {
@@ -257,6 +257,7 @@ var white_domains = {
 "10010.com":1,
 "10050.net":1,
 "100580.com":1,
+"10086.com":1,
 "100afrc.com":1,
 "100ayrc.com":1,
 "100bt.com":1,
@@ -1793,6 +1794,7 @@ var white_domains = {
 "atobo.com":1,
 "atpanel.com":1,
 "auak.com":1,
+"aubdas.com":1,
 "aupu.net":1,
 "austargroup.com":1,
 "austarstudy.com":1,
@@ -9680,7 +9682,7 @@ function isInDomains(domain_dict, host) {
         }
         suffix = host.substring(pos + 1);
         if (hasOwnProperty.call(domain_dict, suffix)) {
-            return false;
+            return true;
         }
         pos = host.lastIndexOf('.', pos - 1);
     }

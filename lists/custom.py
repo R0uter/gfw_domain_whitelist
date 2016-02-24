@@ -26,5 +26,7 @@ maorui.org
 coding.net
 u17i.com
 runoob.com
+10086.com
+aubdas.com
 """
     return set(liststr.splitlines(False))
