@@ -28,5 +28,6 @@ u17i.com
 runoob.com
 10086.com
 aubdas.com
+videocc.net
 """
     return set(liststr.splitlines(False))

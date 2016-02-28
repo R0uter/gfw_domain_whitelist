@@ -8082,6 +8082,7 @@ var white_domains = {
 "vibmro.com":1,
 "vicovico.com":1,
 "vicp.net":1,
+"videocc.net":1,
 "vikecn.com":1,
 "vip.com":1,
 "vip800.com":1,
