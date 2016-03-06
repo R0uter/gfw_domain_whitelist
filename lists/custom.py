@@ -29,5 +29,13 @@ runoob.com
 10086.com
 aubdas.com
 videocc.net
+crashlytics.com
+rrmj.tv
+flypy.com
+ele.me
+Tower.im
+ncar.cc
+ngacn.cc
+steampowered.com
 """
     return set(liststr.splitlines(False))
