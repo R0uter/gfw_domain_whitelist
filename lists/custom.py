@@ -37,5 +37,6 @@ Tower.im
 ncar.cc
 ngacn.cc
 steampowered.com
+youlu.net
 """
     return set(liststr.splitlines(False))

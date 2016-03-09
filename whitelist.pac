@@ -9016,6 +9016,7 @@ var white_domains = {
 "youkelai.com":1,
 "youku.com":1,
 "youlonger.com":1,
+"youlu.net":1,
 "youmeiji.com":1,
 "younet.com":1,
 "yousee.com":1,
