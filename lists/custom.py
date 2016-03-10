@@ -38,5 +38,8 @@ ncar.cc
 ngacn.cc
 steampowered.com
 youlu.net
+chacuo.net
+le.com
+lesports.com
 """
     return set(liststr.splitlines(False))
