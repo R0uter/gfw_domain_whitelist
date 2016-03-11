@@ -3492,6 +3492,7 @@ var white_domains = {
 "ebrun.com":1,
 "ebscn.com":1,
 "ebseek.com":1,
+"ebtang.com":1,
 "ec51.com":1,
 "ec818.com":1,
 "ecaidian.com":1,

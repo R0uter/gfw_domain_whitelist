@@ -41,5 +41,6 @@ youlu.net
 chacuo.net
 le.com
 lesports.com
+ebtang.com
 """
     return set(liststr.splitlines(False))
