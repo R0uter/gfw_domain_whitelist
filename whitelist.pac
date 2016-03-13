@@ -1837,6 +1837,7 @@ var white_domains = {
 "baidajob.com":1,
 "baidu.com":1,
 "baidulian.net":1,
+"baidupcs.com":1,
 "baidustatic.com":1,
 "baiduyy.com":1,
 "baietu.com":1,

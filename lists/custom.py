@@ -42,5 +42,6 @@ chacuo.net
 le.com
 lesports.com
 ebtang.com
+baidupcs.com
 """
     return set(liststr.splitlines(False))
