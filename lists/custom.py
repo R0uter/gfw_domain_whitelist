@@ -9,5 +9,9 @@ jins-cn.com
 sinacloud.com
 applinzi.com
 icloud.com
+jobbole.com
+ayong.org
+yzhosting.com
+images-amazon.com
 """
     return set(liststr.splitlines(False))
