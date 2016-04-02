@@ -13,5 +13,6 @@ jobbole.com
 ayong.org
 yzhosting.com
 images-amazon.com
+live.com
 """
     return set(liststr.splitlines(False))
