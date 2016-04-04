@@ -4,7 +4,7 @@ This PAC file use white list, which contains website can directly access. If som
 
 If you use this PAC file, you may need a proxy which not billing with flow. 
 
->I will write a spider that automaticly update the white list, and as you see, it is not implement yet.
+This white list come frome [Spider for GFW white domain list](https://github.com/R0uter/gfw_domain_whitelist_spider)
 
 For more infomation
 -------
