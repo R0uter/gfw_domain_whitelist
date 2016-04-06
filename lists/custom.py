@@ -14,5 +14,6 @@ ayong.org
 yzhosting.com
 images-amazon.com
 live.com
+xiami.la
 """
     return set(liststr.splitlines(False))
