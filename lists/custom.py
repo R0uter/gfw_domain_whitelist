@@ -15,5 +15,8 @@ yzhosting.com
 images-amazon.com
 live.com
 xiami.la
+leangoo.com
+cncnet.net
+xmcdn.com
 """
     return set(liststr.splitlines(False))
