@@ -4,7 +4,7 @@ import os
 
 from argparse import ArgumentParser
 import list_white
-#import list_ip
+
 
 def parse_args():
 	parser = ArgumentParser()

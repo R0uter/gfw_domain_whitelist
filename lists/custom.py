@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 
 def getlist():
     liststr = """
@@ -18,5 +16,6 @@ xiami.la
 leangoo.com
 cncnet.net
 xmcdn.com
+apple-dns.net
 """
     return set(liststr.splitlines(False))

@@ -1,9 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import custom
+import pop
+import auto
+import oldlist
+
 def get_list_set():
-    import custom
-    import pop
-    import auto
-    return [custom, pop, auto]
+
+    return [custom, pop, auto, oldlist]
 
