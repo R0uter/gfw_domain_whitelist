@@ -1508,7 +1508,6 @@ uuskw.com
 uuu9.com
 wadongxi.com
 wallstreetcn.com
-wikipedia.org
 win8china.com
 wu123.com
 xiaohei.com
