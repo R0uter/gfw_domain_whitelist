@@ -9595,7 +9595,6 @@ var white_domains = {
 "wifun.com":1,
 "wihu.com":1,
 "wiki8.com":1,
-"wikipedia.org":1,
 "williamlong.info":1,
 "win007.com":1,
 "win4000.com":1,
