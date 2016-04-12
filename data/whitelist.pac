@@ -11,7 +11,7 @@ var direct = "DIRECT;";
 
 /*
  * Copyright (C) 2015 - 2016 R0uter
- * https://github.com/R0uter/gfw_whitelist
+ * https://github.com/R0uter/gfw_domain_whitelist
  */
 
 var white_domains = __DOMAINS__;
