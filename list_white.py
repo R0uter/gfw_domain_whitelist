@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import re
 
 def get_all_list(lists):
     all_list = set()
@@ -14,10 +15,15 @@ def get_all_list(lists):
     url_dict.sort()
 
     for key in url_dict:
-		
+        if isPoison(key): continue
         result.append('"%s":1,\n' % key )
 
     return result
+
+def isPoison(key):
+    if re.findall('google',key):
+        return True
+    return False
 
 def final_list():
     import lists
