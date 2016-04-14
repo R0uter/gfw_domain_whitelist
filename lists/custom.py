@@ -17,5 +17,6 @@ leangoo.com
 cncnet.net
 xmcdn.com
 apple-dns.net
+bttiantang.com
 """
     return set(liststr.splitlines(False))
