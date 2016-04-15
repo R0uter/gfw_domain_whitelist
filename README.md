@@ -4,9 +4,9 @@ This PAC file use white list, which contains website can directly access. If som
 
 If you use this PAC file, you may need a proxy which not billing with flow. 
 
-This white list come frome [Spider for GFW white domain list](https://github.com/R0uter/gfw_domain_whitelist_spider)
+This white list come from [felixonmars dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)
 
-For more infomation
+More infomation
 -------
 Please go to [WIKI](https://github.com/R0uter/gfw_whitelist/wiki)
 
@@ -21,11 +21,9 @@ Download the`whitelist.pac`, edit Server IP, and the type of proxy.Then change y
 
 ### Use script to generate the PAC file
 
-Excute command `$python main.py`.
+Excute command `$python3 main.py`.
 
-Then `whitelist.pac` will updated, before you do so, you can simply add other white domain in `lists/custom.py`. 
-
->I highly recommend you issues or pull requset your `custom.py` to me!
+Then `whitelist.pac` will updated. 
 
 
 ### Load-Balance
@@ -45,20 +43,21 @@ PAC performance (100,000 repeat)
 ----------------
     Firefox  
     whitelist.pac 80ms 
-    load balabce: whitelist.pac 90ms
+    load balabce: whitelist.pac 50ms
 
     Chrome  
     whitelist.pac 120ms
-    load balabce: whitelist.pac 170ms
+    load balabce: whitelist.pac 70ms
 
     Safari  
     whitelist.pac 80ms  
-    load balabce: whitelist.pac 84ms  
+    load balabce: whitelist.pac 54ms  
 
 Base on 
 ------------
 [breakwa11 gfw_whitelist](https://github.com/breakwa11/gfw_whitelist)  
 [clowwindy gfwlist2pac](https://github.com/clowwindy/gfwlist2pac)  
+[felixonmars dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)
 
 ##MIT License (MIT)
 
