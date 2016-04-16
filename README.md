@@ -42,16 +42,16 @@ There is one more thing you should know, load balance is domain-based load balan
 PAC performance (100,000 repeat)
 ----------------
     Firefox  
-    whitelist.pac 80ms 
-    load balabce: whitelist.pac 50ms
+    whitelist.pac 50ms 
+    load balabce: whitelist.pac 40ms
 
     Chrome  
-    whitelist.pac 120ms
-    load balabce: whitelist.pac 70ms
+    whitelist.pac 70ms
+    load balabce: whitelist.pac 68ms
 
     Safari  
-    whitelist.pac 80ms  
-    load balabce: whitelist.pac 54ms  
+    whitelist.pac 50ms  
+    load balabce: whitelist.pac 44ms  
 
 Base on 
 ------------
