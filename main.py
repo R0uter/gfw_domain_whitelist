@@ -32,7 +32,7 @@ def writefile(input_file, proxy, output_file):
 
 def get_list():
     print('Getting domain whitelist...')
-    dnsmasq_china_list = 'https://github.com/felixonmars/dnsmasq-china-list/raw/master/accelerated-domains.china.conf'
+    dnsmasq_china_list = 'https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf'
     whitelist = []
     try:
         content = getList(dnsmasq_china_list)
@@ -46,7 +46,7 @@ def get_list():
 
     f = codecs.open('whitelistCache', 'r', 'utf-8')
     for line in f.readlines():
-        l = re.findall(r'\w+\.\w+', line)
+        l = re.findall(r'(?<==/).+(?=/)', line)
         whitelist.append('"'+l[0]+'":1,')
     f.close()
 
