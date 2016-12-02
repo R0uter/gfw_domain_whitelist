@@ -6,6 +6,8 @@ If you use this PAC file, you may need a proxy which not billing with flow.
 
 This white list come from [felixonmars dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)
 
+This project location : [https://github.com/R0uter/gfw_domain_whitelist](https://github.com/R0uter/gfw_domain_whitelist)
+
 More infomation
 -------
 Please go to [WIKI](https://github.com/R0uter/gfw_whitelist/wiki)
