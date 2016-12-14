@@ -7,7 +7,7 @@ var proxy = new Array( __PROXY__,
 "SOCKS5 127.0.0.1:1082; SOCKS 127.0.0.1:1083;");
 
 var direct = "DIRECT;";
-var ip_proxy = "DIRECT;";
+var ip_proxy = proxy[0];
 
 /*
  * Copyright (C) 2015 - 2016 R0uter
