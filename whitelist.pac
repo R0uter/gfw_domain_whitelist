@@ -16208,7 +16208,7 @@ var white_domains = {
 "googlesysndication.com":1,
 "googletagmanager.com":1,
 "googletagservices.com":1,
-"googlo.me":1,
+"googlevideo.com":1,
 "goojer.com":1,
 "goolink.org":1,
 "gooncheck.com":1,
@@ -38742,4 +38742,3 @@ function FindProxyForURL(url, host) {
 	}
 	return proxy[0];
 }
-
