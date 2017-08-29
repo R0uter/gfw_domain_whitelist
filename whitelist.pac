@@ -1,7 +1,8 @@
 var okToLoadBalance = false;
 
-var proxy = new Array( 
-//add more proxy to loadbalance!
+var proxy = new Array(
+
+// Add more proxies to load-balance!
 
 "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080;",
 "SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081;",
@@ -251,6 +252,7 @@ var white_domains = {
 "0371liyi.com":1,
 "0371wang.com":1,
 "0372ay.com":1,
+"037398.com":1,
 "0375art.com":1,
 "0376.net":1,
 "0376news.com":1,
@@ -661,6 +663,7 @@ var white_domains = {
 "10086web.com":1,
 "100afrc.com":1,
 "100allin.com":1,
+"100alpha.com":1,
 "100ayrc.com":1,
 "100bt.com":1,
 "100chou.com":1,
@@ -4168,6 +4171,7 @@ var white_domains = {
 "61mc.com":1,
 "61tg.com":1,
 "61ux.com":1,
+"61vps.com":1,
 "61xiangce.com":1,
 "61zy.cc":1,
 "62.com":1,
@@ -4732,6 +4736,7 @@ var white_domains = {
 "7gz.com":1,
 "7han.com":1,
 "7hcn.com":1,
+"7ho.com":1,
 "7hon.com":1,
 "7huoguo.com":1,
 "7huoxing.com":1,
@@ -7394,6 +7399,7 @@ var white_domains = {
 "baiila.com":1,
 "baijiegroup.com":1,
 "baijiexiu.com":1,
+"baijindai.com":1,
 "baijingapp.com":1,
 "baijob.com":1,
 "baijunyao.com":1,
@@ -8550,6 +8556,7 @@ var white_domains = {
 "bscream.net":1,
 "bsh.me":1,
 "bshare.com":1,
+"bshou8.com":1,
 "bsida.com":1,
 "bsjhhzs.com":1,
 "bsjx.org":1,
@@ -11985,6 +11992,7 @@ var white_domains = {
 "czwlzx.com":1,
 "czxiu.com":1,
 "czxixi.com":1,
+"czzsl.net":1,
 "czzsw.com":1,
 "czzweal.com":1,
 "czzy-edu.com":1,
@@ -12112,6 +12120,7 @@ var white_domains = {
 "daimajia.com":1,
 "daimasucai.com":1,
 "daimg.com":1,
+"daishangqian.com":1,
 "daishu.com":1,
 "daishujiankang.com":1,
 "daishutijian.com":1,
@@ -12276,6 +12285,7 @@ var white_domains = {
 "datang.com":1,
 "datang.net":1,
 "dataodu.com":1,
+"dataoke.com":1,
 "datapanda.net":1,
 "datasecurity.htcsense.com":1,
 "datasheet5.com":1,
@@ -13556,6 +13566,7 @@ var white_domains = {
 "dvdzm.com":1,
 "dvmission.com":1,
 "dw.la":1,
+"dw178.com":1,
 "dw188.com":1,
 "dwjoy.com":1,
 "dwqcw.com":1,
@@ -13715,6 +13726,7 @@ var white_domains = {
 "e-jiangnan.com":1,
 "e-jjj.com":1,
 "e-job580.com":1,
+"e-lifemall.com":1,
 "e-lining.com":1,
 "e-lvyou.com":1,
 "e-nci.com":1,
@@ -16820,6 +16832,7 @@ var white_domains = {
 "haguan.com":1,
 "haguotu.com":1,
 "haguworld.com":1,
+"hagyyqghfj.com":1,
 "haha.mx":1,
 "haha168.com":1,
 "haha33.com":1,
@@ -17075,6 +17088,7 @@ var white_domains = {
 "haoliv.com":1,
 "haolizi.net":1,
 "haolongart.com":1,
+"haolunsi.com":1,
 "haolyy.com":1,
 "haomaiyi.com":1,
 "haomaotao.com":1,
@@ -17688,6 +17702,7 @@ var white_domains = {
 "hitortoise.com":1,
 "hitui.com":1,
 "hitutu.com":1,
+"hitv.com":1,
 "hiued.org":1,
 "hiveview.com":1,
 "hivr.me":1,
@@ -18565,6 +18580,7 @@ var white_domains = {
 "hxgqw.com":1,
 "hxh999.com":1,
 "hxhost.com":1,
+"hxjbcdn.com":1,
 "hxjbh.com":1,
 "hxjiqi.com":1,
 "hxlif.com":1,
@@ -18859,6 +18875,7 @@ var white_domains = {
 "icuiya.com":1,
 "icyip.com":1,
 "icylife.net":1,
+"id-linking.com":1,
 "id31.com":1,
 "id528.com":1,
 "id97.com":1,
@@ -19973,6 +19990,7 @@ var white_domains = {
 "jbl100.com":1,
 "jbook.hk":1,
 "jbpan.com":1,
+"jbqipa.com":1,
 "jbxue.com":1,
 "jbzwread.com":1,
 "jbzyw.com":1,
@@ -20443,6 +20461,7 @@ var white_domains = {
 "jinjia.la":1,
 "jinjiang.com":1,
 "jinjianginns.com":1,
+"jinjie365.com":1,
 "jinkan.org":1,
 "jinke3d.com":1,
 "jinku.com":1,
@@ -22699,6 +22718,7 @@ var white_domains = {
 "lianaibiji.com":1,
 "lianbijr.com":1,
 "liangchan.net":1,
+"liangduiban.com":1,
 "liangjan.com":1,
 "liangjian.com":1,
 "liangkun.net":1,
@@ -24066,6 +24086,7 @@ var white_domains = {
 "megajoy.com":1,
 "megou8.com":1,
 "meguo.com":1,
+"megvii.com":1,
 "mei.com":1,
 "meia.me":1,
 "meiaoju.com":1,
@@ -25968,6 +25989,7 @@ var white_domains = {
 "okcoin.com":1,
 "okdai.com":1,
 "okemu.com":1,
+"okerwr.com":1,
 "okeycar.com":1,
 "okgj.com":1,
 "okhqb.com":1,
@@ -26653,6 +26675,7 @@ var white_domains = {
 "piekee.net":1,
 "pifawww.com":1,
 "pifukezaixian.com":1,
+"pig.ai":1,
 "pig66.com":1,
 "pigai.org":1,
 "pigcms.com":1,
@@ -28287,6 +28310,7 @@ var white_domains = {
 "rjzxw.com":1,
 "rkanr.com":1,
 "rkdatabase.com":1,
+"rkeji.com":1,
 "rkidc.net":1,
 "rkylin.com":1,
 "rlkj.com":1,
@@ -29502,6 +29526,7 @@ var white_domains = {
 "shunderen.com":1,
 "shunfalighting.com":1,
 "shunong.com":1,
+"shunshikj.com":1,
 "shunvzhi.com":1,
 "shunwang.com":1,
 "shunwei.com":1,
@@ -30272,6 +30297,7 @@ var white_domains = {
 "starswar.org":1,
 "start.htc.com":1,
 "start.htcsense.com":1,
+"startcarlife.com":1,
 "starting2000.com":1,
 "startos.com":1,
 "startup-partner.com":1,
@@ -31720,6 +31746,7 @@ var white_domains = {
 "toutiao.com":1,
 "toutiao.io":1,
 "toutiao9.com":1,
+"toutiaocdn.com":1,
 "toutiaocdn.net":1,
 "toutiaocloud.com":1,
 "toutiaocloud.net":1,
@@ -32360,6 +32387,7 @@ var white_domains = {
 "ukejisong.com":1,
 "uker.net":1,
 "ukliaoning.org":1,
+"ukongm.com":1,
 "ukore.com":1,
 "ukpass.org":1,
 "ukpathway.com":1,
@@ -34942,6 +34970,7 @@ var white_domains = {
 "xiaonei.com":1,
 "xiaoniu66.com":1,
 "xiaoniu88.com":1,
+"xiaoniuapp.com":1,
 "xiaonn.com":1,
 "xiaopena.com":1,
 "xiaopi.com":1,
@@ -35909,6 +35938,7 @@ var white_domains = {
 "yangcong345.com":1,
 "yangcongbao.com":1,
 "yangcongtao.com":1,
+"yangcs.net":1,
 "yangfd.com":1,
 "yangfenzi.com":1,
 "yanggezaixian.com":1,
@@ -36243,6 +36273,7 @@ var white_domains = {
 "yifutu.com":1,
 "yigao.com":1,
 "yigaosu.com":1,
+"yige.dog":1,
 "yigeqianbao.com":1,
 "yigoonet.com":1,
 "yigou.com.tw":1,
@@ -37116,6 +37147,7 @@ var white_domains = {
 "yun.gd":1,
 "yun.pm":1,
 "yun.tf":1,
+"yun.yuyiya.com":1,
 "yun77.net":1,
 "yunadsl.com":1,
 "yunaq.com":1,
@@ -38095,6 +38127,7 @@ var white_domains = {
 "zhongsou.com":1,
 "zhongsou.net":1,
 "zhongtaitrust.com":1,
+"zhongtuobang.com":1,
 "zhongw.net":1,
 "zhongxing123.com":1,
 "zhongyao1.com":1,
@@ -38176,6 +38209,8 @@ var white_domains = {
 "zhubofen.com":1,
 "zhuce.la":1,
 "zhucexianggang.com":1,
+"zhudai.com":1,
+"zhudai888.com":1,
 "zhudiaosz.com":1,
 "zhufenqi.com":1,
 "zhugeapi.com":1,
@@ -38729,6 +38764,7 @@ var white_domains = {
 "zye.cc":1,
 "zyexhibition.com":1,
 "zyfj.com":1,
+"zyh365.com":1,
 "zyiis.net":1,
 "zyitv.com":1,
 "zylm99.com":1,
@@ -38812,18 +38848,19 @@ var white_domains = {
 };
 
 var subnetIpRangeList = [
-    0,1,
-    167772160, 184549376,    //10.0.0.0/8
-    2886729728, 2887778304,    //172.16.0.0/12
-    3232235520, 3232301056,    //192.168.0.0/16
-    2130706432, 2130706688    //127.0.0.0/24
+    0, 1,
+    167772160, 184549376,    // 10.0.0.0/8
+    2886729728, 2887778304,  // 172.16.0.0/12
+    3232235520, 3232301056,  // 192.168.0.0/16
+    2130706432, 2130706688   // 127.0.0.0/24
 ];
 
 var hasOwnProperty = Object.hasOwnProperty;
 
 function check_ipv4(host) {
-    // check if the ipv4 format (TODO: ipv6)
-    //   http://home.deds.nl/~aeron/regex/
+    // (TODO: ipv6)
+    // http://home.deds.nl/~aeron/regex/
+
     var re_ipv4 = /^\d+\.\d+\.\d+\.\d+$/g;
     if (re_ipv4.test(host)) {
         // in theory, we can add chnroutes test here.
@@ -38831,47 +38868,50 @@ function check_ipv4(host) {
         return true;
     }
 }
-function convertAddress(ipchars) {
+
+function convertAddress (ipchars) {
     var bytes = ipchars.split('.');
     var result = (bytes[0] << 24) |
     (bytes[1] << 16) |
     (bytes[2] << 8) |
     (bytes[3]);
+
     return result >>> 0;
 }
-function isInSubnetRange(ipRange, intIp) {
-    for ( var i = 0; i < 10; i += 2 ) {
-        if ( ipRange[i] <= intIp && intIp < ipRange[i+1] )
+
+function isInSubnetRange (ipRange, intIp) {
+    for (var i = 0; i < 10; i += 2) {
+        if (ipRange[i] <= intIp && intIp < ipRange[i+1])
             return true;
     }
 }
-function getProxyFromDirectIP(strIp) {
+
+function getProxyFromDirectIP (strIp) {
     var intIp = convertAddress(strIp);
 
-    if ( isInSubnetRange(subnetIpRangeList, intIp) ) {
+    if (isInSubnetRange(subnetIpRangeList, intIp)) {
         return direct;
     }
 
     return ip_proxy;
 }
 
-function FindProxyForURL(url, host) {
+function FindProxyForURL (url, host) {
     var suffix;
     var pos = host.lastIndexOf('.');
-    
 }
-function isInDomains(domain_dict, host) {
-    var suffix;
-    var pos = host.lastIndexOf('.');
 
-    suffix = host.substring(pos + 1);
+function isInDomains (domain_dict, host) {
+    var pos = host.lastIndexOf('.');
+    var suffix = host.substring(pos + 1);
+
     if (suffix == "cn") {
         return true;
     }
 
     pos = host.lastIndexOf('.', pos - 1);
 
-    while(1) {
+    while (true) {
         if (pos == -1) {
             if (hasOwnProperty.call(domain_dict, host)) {
                 return true;
@@ -38888,28 +38928,33 @@ function isInDomains(domain_dict, host) {
         pos = host.lastIndexOf('.', pos - 1);
     }
 }
-function loadBalance() {
+
+function loadBalance () {
     var random = 0;
-    while(1) {
+
+    while (true) {
         random = Math.round((Math.random() * 10) - 1);
         if (random < proxy.length) {
             return proxy[random];
         }
     }
 }
-function FindProxyForURL(url, host) {
-    if ( isPlainHostName(host) === true ) {
+
+function FindProxyForURL (url, host) {
+    if (isPlainHostName(host) === true) {
         return direct;
     }
-    if ( check_ipv4(host) === true ) {
+    
+    if (check_ipv4(host) === true) {
         return getProxyFromDirectIP(host);
     }
-    if ( isInDomains(white_domains, host) === true ) {
+
+    if (isInDomains(white_domains, host) === true) {
         return direct;
     }
+    
     if (okToLoadBalance) {
         return loadBalance();
     }
     return proxy[0];
 }
-
