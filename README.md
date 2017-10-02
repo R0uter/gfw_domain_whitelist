@@ -14,18 +14,16 @@ Please go to [WIKI](https://github.com/R0uter/gfw_whitelist/wiki)
 
 ## How to use 
 
-Download the`whitelist.pac`, edit Server IP, and the type of proxy.Then change your browser's config, point to`whitelist.pac`.
+Download the `whitelist.pac`, edit the server IP and the type of proxy. After that change your browser's config, point to `whitelist.pac`.
 
 	var proxy = new Array( "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080;",
 	Change the type of proxy,it also can be 'HTTPS'
-    Make sure change both SOCKS5 and SOCKS
+    Make sure to change both SOCKS5 and SOCKS
 
 
 ### Use script to generate the PAC file
 
-Excute command `$python3 main.py`.
-
-Then `whitelist.pac` will updated. 
+Excute command `python3 main.py`, `whitelist.pac` will updated. 
 
 
 ### Load-Balance
@@ -36,9 +34,9 @@ You can change `okToLoadBalance` value to `true` to use the load balance feature
     Different port or ip, and do not lose the comma!
     
 
-As you see, `proxy` is an array, you can add most ten proxys to load balance! But three is good enough.
+As you see, `proxy` is an array, you can add at most ten proxies to load balance! Though three is good enough.
 
-There is one more thing you should know, load balance is domain-based load balance, so it would not accelorate video or download something. Also notice: do not use this feature if your proxys not speed same.
+There is one more thing you should know that load-balancing is domain-based load balance, so it would not accelorate video or download something. Do not use this feature if your proxies not speed same.
 
 
 PAC performance (100,000 repeat)
@@ -55,13 +53,13 @@ PAC performance (100,000 repeat)
     whitelist.pac 50ms  
     load balabce: whitelist.pac 44ms  
 
-Base on 
+Based on 
 ------------
 [breakwa11 gfw_whitelist](https://github.com/breakwa11/gfw_whitelist)  
 [clowwindy gfwlist2pac](https://github.com/clowwindy/gfwlist2pac)  
 [felixonmars dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)
 
-##MIT License (MIT)
+## MIT License (MIT)
 
 The MIT License (MIT)
 
