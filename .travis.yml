@@ -7,4 +7,12 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - python main.py
+  - python main.py --output gh-pages/whitelist.pac
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: gh-pages
+  on:
+    branch: master
