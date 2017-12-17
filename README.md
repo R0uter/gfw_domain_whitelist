@@ -1,5 +1,5 @@
 # GFW White List 
-![](https://travis-ci.org/R0uter/gfw_domain_whitelist#)
+[![Build Status](https://travis-ci.org/R0uter/gfw_domain_whitelist.svg?branch=master)](https://travis-ci.org/R0uter/gfw_domain_whitelist)
 This PAC file use white list, which contains website can directly access. If some domain are not included, it will access through proxy.
 
 If you use this PAC file, you may need a proxy which not billing with flow. 
