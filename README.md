@@ -1,5 +1,5 @@
 # GFW White List 
-
+![](https://travis-ci.org/R0uter/gfw_domain_whitelist#)
 This PAC file use white list, which contains website can directly access. If some domain are not included, it will access through proxy.
 
 If you use this PAC file, you may need a proxy which not billing with flow. 
@@ -14,7 +14,7 @@ Please go to [WIKI](https://github.com/R0uter/gfw_whitelist/wiki)
 
 ## How to use 
 
-Download the `whitelist.pac`, edit the server IP and the type of proxy. After that change your browser's config, point to `whitelist.pac`.
+Download the [`whitelist.pac`](https://R0uter.github.io/gfw_domain_whitelist/), edit the server IP and the type of proxy. After that change your browser's config, point to `whitelist.pac`.
 
 	var proxy = new Array( "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080;",
 	Change the type of proxy,it also can be 'HTTPS'
