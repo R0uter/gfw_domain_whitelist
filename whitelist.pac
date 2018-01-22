@@ -15551,8 +15551,9 @@ var white_domains = {
 "fongmong.com":1,
 "font5.com":1,
 "fontke.com":1,
-"fonts.googleapis.com":1,
-"fonts.gstatic.com":1,
+//这两个不白,会引起打不开一些网页.
+//"fonts.googleapis.com":1,
+//"fonts.gstatic.com":1,
 "foodgx.com":1,
 "foodjx.com":1,
 "foodmate.net":1,
