@@ -12,7 +12,9 @@ More infomation
 -------
 Please go to [WIKI](https://github.com/R0uter/gfw_whitelist/wiki)
 
-## How to use 
+## How to use
+
+**Switch to `gh-pages` branch to [download latest pac file](https://R0uter.github.io/gfw_domain_whitelist/)!**
 
 Download the [`whitelist.pac`](https://R0uter.github.io/gfw_domain_whitelist/), edit the server IP and the type of proxy. After that change your browser's config, point to `whitelist.pac`.
 
