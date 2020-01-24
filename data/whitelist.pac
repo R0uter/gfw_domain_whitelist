@@ -5,13 +5,13 @@ var proxy = new Array(
 // Add more proxies to load-balance!
 
 __PROXY__,
-"SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081;",
-"SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1082;",
-"SOCKS5 127.0.0.1:1082; SOCKS 127.0.0.1:1083;"
+"SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081",
+"SOCKS5 127.0.0.1:1082; SOCKS 127.0.0.1:1082",
+"SOCKS5 127.0.0.1:1083; SOCKS 127.0.0.1:1083"
 
 );
 
-var direct = "DIRECT;";
+var direct = "DIRECT";
 var ip_proxy = proxy[0];
 
 /*
@@ -70,11 +70,6 @@ function getProxyFromDirectIP (strIp) {
     return ip_proxy;
 }
 
-function FindProxyForURL (url, host) {
-    var suffix;
-    var pos = host.lastIndexOf('.');
-}
-
 function isInDomains (domain_dict, host) {
     var pos = host.lastIndexOf('.');
     var suffix = host.substring(pos + 1);
@@ -104,14 +99,9 @@ function isInDomains (domain_dict, host) {
 }
 
 function loadBalance () {
-    var random = 0;
-
-    while (true) {
-        random = Math.round((Math.random() * 10) - 1);
-        if (random < proxy.length) {
-            return proxy[random];
-        }
-    }
+    // generate a int range from 0 to proxy.length - 1
+    var random = Math.floor(Math.random() * proxy.length);
+    return proxy[random];
 }
 
 function FindProxyForURL (url, host) {
