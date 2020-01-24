@@ -70,11 +70,6 @@ function getProxyFromDirectIP (strIp) {
     return ip_proxy;
 }
 
-function FindProxyForURL (url, host) {
-    var suffix;
-    var pos = host.lastIndexOf('.');
-}
-
 function isInDomains (domain_dict, host) {
     var pos = host.lastIndexOf('.');
     var suffix = host.substring(pos + 1);
