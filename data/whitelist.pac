@@ -12,7 +12,6 @@ __PROXY__,
 );
 
 var direct = "DIRECT";
-var ip_proxy = proxy[0];
 
 /*
  * Copyright (C) 2015 - 2017 R0uter
@@ -21,7 +20,7 @@ var ip_proxy = proxy[0];
 
 var white_domains = __DOMAINS__;
 
-var subnetIpRangeList = [
+var subnetIp4RangeList = [
     0, 1,
     167772160, 184549376,    // 10.0.0.0/8
     2886729728, 2887778304,  // 172.16.0.0/12
@@ -39,15 +38,15 @@ function check_ipv4(host) {
     return re_ipv4.test(host);
 }
 
-function convertAddress (ipchars) {
-    var bytes = ipchars.split('.');
+function convertIp4Address (strIp) {
+    var bytes = strIp.split('.');
     return (bytes[0] << 24) |
         (bytes[1] << 16) |
         (bytes[2] << 8) |
         (bytes[3]);
 }
 
-function isInSubnetRange (ipRange, intIp) {
+function isInSubnetIp4Range (ipRange, intIp) {
     for (var i = 0; i < 10; i += 2) {
         if (ipRange[i] <= intIp && intIp < ipRange[i+1])
             return true;
@@ -91,9 +90,9 @@ function FindProxyForURL (url, host) {
     }
 
     if (check_ipv4(host)) {
-        var intIp = convertAddress(strIp);
+        var intIp = convertIp4Address(strIp);
 
-        if (isInSubnetRange(subnetIpRangeList, intIp)) {
+        if (isInSubnetIp4Range(subnetIp4RangeList, intIp)) {
             return direct;
         }
     } else {
