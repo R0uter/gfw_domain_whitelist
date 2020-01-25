@@ -36,21 +36,15 @@ function check_ipv4(host) {
     // http://home.deds.nl/~aeron/regex/
 
     var re_ipv4 = /^\d+\.\d+\.\d+\.\d+$/g;
-    if (re_ipv4.test(host)) {
-        // in theory, we can add chnroutes test here.
-        // but that is probably too much an overkill.
-        return true;
-    }
+    return re_ipv4.test(host);
 }
 
 function convertAddress (ipchars) {
     var bytes = ipchars.split('.');
-    var result = (bytes[0] << 24) |
-    (bytes[1] << 16) |
-    (bytes[2] << 8) |
-    (bytes[3]);
-
-    return result >>> 0;
+    return (bytes[0] << 24) |
+        (bytes[1] << 16) |
+        (bytes[2] << 8) |
+        (bytes[3]);
 }
 
 function isInSubnetRange (ipRange, intIp) {
@@ -58,35 +52,22 @@ function isInSubnetRange (ipRange, intIp) {
         if (ipRange[i] <= intIp && intIp < ipRange[i+1])
             return true;
     }
-}
-
-function getProxyFromDirectIP (strIp) {
-    var intIp = convertAddress(strIp);
-
-    if (isInSubnetRange(subnetIpRangeList, intIp)) {
-        return direct;
-    }
-
-    return ip_proxy;
+    return false;
 }
 
 function isInDomains (domain_dict, host) {
     var pos = host.lastIndexOf('.');
     var suffix = host.substring(pos + 1);
 
-    if (suffix == "cn") {
+    if (suffix === "cn") {
         return true;
     }
 
     pos = host.lastIndexOf('.', pos - 1);
 
     while (true) {
-        if (pos == -1) {
-            if (hasOwnProperty.call(domain_dict, host)) {
-                return true;
-            } else {
-                return false;
-            }
+        if (pos === -1) {
+            return hasOwnProperty.call(domain_dict, host);
         }
 
         suffix = host.substring(pos + 1);
@@ -105,18 +86,22 @@ function loadBalance () {
 }
 
 function FindProxyForURL (url, host) {
-    if (isPlainHostName(host) === true) {
+    if (isPlainHostName(host)) {
         return direct;
-    }
-    
-    if (check_ipv4(host) === true) {
-        return getProxyFromDirectIP(host);
     }
 
-    if (isInDomains(white_domains, host) === true) {
-        return direct;
+    if (check_ipv4(host)) {
+        var intIp = convertAddress(strIp);
+
+        if (isInSubnetRange(subnetIpRangeList, intIp)) {
+            return direct;
+        }
+    } else {
+        if (isInDomains(white_domains, host)) {
+            return direct;
+        }
     }
-    
+
     if (okToLoadBalance) {
         return loadBalance();
     }
