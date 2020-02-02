@@ -1,6 +1,8 @@
+// if false, use proxy[0] by default
 var okToLoadBalance = false;
 
 var proxy = [
+    // add more proxies to load-balance!
     __PROXY__,
     "SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081",
     "SOCKS5 127.0.0.1:1082; SOCKS 127.0.0.1:1082",
@@ -38,18 +40,37 @@ function check_ipv4(host) {
     return re_ipv4.test(host);
 }
 
+function convertIp4Address(strIp) {
+    var bytes = strIp.split('.');
+    var result = (bytes[0] << 24) |
+        (bytes[1] << 16) |
+        (bytes[2] << 8) |
+        (bytes[3]);
+    return result >>> 0;
+}
+
+function isInSubnetIp4Range(ipRange, intIp) {
+    for (var i = 0; i < 10; i += 2) {
+        if (ipRange[i] <= intIp && intIp < ipRange[i + 1])
+            return true;
+    }
+    return false;
+}
+
+function getProxyFromIp4(strIp) {
+    var intIp = convertIp4Address(strIp);
+
+    if (isInSubnetIp4Range(subnetIp4RangeList, intIp)) {
+        return direct;
+    }
+    // in theory, we can add chnroutes test here.
+    return loadBalance();
+}
+
 function check_ipv6(host) {
     // http://home.deds.nl/~aeron/regex/
     var re_ipv6 = /^((?=.*::)(?!.*::.+::)(::)?([\dA-F]{1,4}:(:|\b)|){5}|([\dA-F]{1,4}:){6})((([\dA-F]{1,4}((?!\3)::|:\b|$))|(?!\2\3)){2})$/i;
     return re_ipv6.test(host)
-}
-
-function convertIp4Address(strIp) {
-    var bytes = strIp.split('.');
-    return (bytes[0] << 24) |
-        (bytes[1] << 16) |
-        (bytes[2] << 8) |
-        (bytes[3]);
 }
 
 function convertIp6Address(strIp) {
@@ -76,7 +97,7 @@ function convertIp6Address(strIp) {
     return result;
 }
 
-function isInSubnetIp4Range(ipRange, intIp) {
+function isInSubnetIp6Range(ipRange, intIp) {
     for (var i = 0; i < 10; i += 2) {
         if (ipRange[i] <= intIp && intIp < ipRange[i + 1])
             return true;
@@ -84,12 +105,14 @@ function isInSubnetIp4Range(ipRange, intIp) {
     return false;
 }
 
-function isInSubnetIp6Range(ipRange, intIp) {
-    for (var i = 0; i < 10; i += 2) {
-        if (ipRange[i] <= intIp && intIp < ipRange[i + 1])
-            return true;
+function getProxyFromIp6(strIp) {
+    var intIp = convertIp6Address(strIp);
+
+    if (isInSubnetIp6Range(subnetIp6RangeList, intIp)) {
+        return direct;
     }
-    return false;
+
+    return loadBalance();
 }
 
 function isInDomains(domain_dict, host) {
@@ -117,9 +140,11 @@ function isInDomains(domain_dict, host) {
 }
 
 function loadBalance() {
-    // generate a int range from 0 to proxy.length - 1
-    var random = Math.floor(Math.random() * proxy.length);
-    return proxy[random];
+    if (okToLoadBalance) {
+        var random = Math.floor(Math.random() * proxy.length);
+        return proxy[random];
+    }
+    return proxy[0];
 }
 
 function FindProxyForURL(url, host) {
@@ -128,25 +153,16 @@ function FindProxyForURL(url, host) {
     }
 
     if (check_ipv4(host)) {
-        var intIp = convertIp4Address(host);
-
-        if (isInSubnetIp4Range(subnetIp4RangeList, intIp)) {
-            return direct;
-        }
-    } else if (check_ipv6(host)) {
-        var intIp = convertIp6Address(host);
-
-        if (isInSubnetIp4Range(subnetIp6RangeList, intIp)) {
-            return direct;
-        }
-    } else {
-        if (isInDomains(white_domains, host)) {
-            return direct;
-        }
+        return getProxyFromIp4(host);
     }
 
-    if (okToLoadBalance) {
-        return loadBalance();
+    if (check_ipv6(host)) {
+        return getProxyFromIp6(host);
     }
-    return proxy[0];
+
+    if (isInDomains(white_domains, host)) {
+        return direct;
+    }
+
+    return loadBalance();
 }
