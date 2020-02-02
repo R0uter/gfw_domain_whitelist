@@ -28,10 +28,10 @@ var subnetIp4RangeList = [
 ];
 
 var subnetIp6RangeList = [
-    0x0n, 0x1n,                  // ::/128
-    0xfe800000000000000000000000000000n, 0xfe80000000000000ffffffffffffffffn,  // fe80::/64
-    0xfec00000000000000000000000000000n, 0xfec000000000ffffffffffffffffffffn,  // fec0::/48
-    0x1n, 0x2n   // ::1/128
+  [0x0, 0x0, 0x0, 0x0], [0x0, 0x0, 0x0, 0x1],                                 // ::/128
+  [0x0, 0x0, 0x0, 0x1], [0x0, 0x0, 0x0, 0x2],                                 // ::1/128
+  [0xfe800000, 0x0, 0x0, 0x0], [0xfe800000, 0x0, 0xffffffff, 0xffffffff],     // fe80::/64
+  [0xfec00000, 0x0, 0x0, 0x0], [0xfec00000, 0xffff, 0xffffffff, 0xffffffff],  // fec0::/48
 ];
 
 var hasOwnProperty = Object.hasOwnProperty;
@@ -100,41 +100,79 @@ function check_ipv6(host) {
 }
 
 function convertIp6Address(strIp) {
-    var hexs = strIp.split(':');
-    var pos = hexs.indexOf("");
-    if (pos === 0) { // ::1
-        pos = hexs.indexOf("", pos + 1);
-    }
-    var hexLen = hexs.length;
-    var result = 0n;
-    var scale = 112n, index = 0;
+    var words = strIp.split(':');
+    var pos = words.indexOf('');
+    if (pos === 0)
+        pos = words.indexOf('', pos + 1);
+    var dwords = [0, 0, 0, 0];
+    var len = words.length;
+    var index = 0,  // index of ipv6
+        wordi = 0;  // index of words
     do {
-        if (pos === index) {
-            scale -= 16n * BigInt(9 - hexs.length)
+        if (pos === wordi) {
+            index += 9 - len;
         } else {
-            var hex = hexs[index];
-            if (hex !== "" && hex !== "0") {
-                result = result | (BigInt("0x" + hexs[index]) << scale);
+            var word = words[wordi];
+            if (word) {
+                if (index & 0x1)
+                    dwords[index >>> 1] += parseInt(word, 16);
+                else
+                    dwords[index >>> 1] = (parseInt(word, 16) << 16) >>> 0;
             }
-            scale -= 16n;
+            index++;
         }
-        index++;
-    } while (index < hexLen);
-    return result;
+        wordi++;
+    } while (wordi < len);
+    return dwords;
 }
 
-function isInSubnetIp6Range(ipRange, intIp) {
-    for (var i = 0; i < 10; i += 2) {
-        if (ipRange[i] <= intIp && intIp < ipRange[i + 1])
-            return true;
-    }
+function compareIp6(a, b) {
+    if (a[0] > b[0]) return 1;
+    if (a[0] < b[0]) return -1;
+    if (a[1] > b[1]) return 1;
+    if (a[1] < b[1]) return -1;
+    if (a[2] > b[2]) return 1;
+    if (a[2] < b[2]) return -1;
+    if (a[3] > b[3]) return 1;
+    if (a[3] < b[3]) return -1;
+    return 0;
+}
+
+function isInIp6RangeList(ipRange, intIp) {
+    if (ipRange.length === 0)
+        return false;
+    var left = 0, right = ipRange.length - 1;
+    do {
+        var mid = Math.floor((left + right) / 2);
+        if (mid & 0x1) {
+            if (compareIp6(intIp, ipRange[mid - 1]) >= 0) {
+                if (compareIp6(intIp, ipRange[mid]) < 0) {
+                    return true
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                right = mid - 2
+            }
+        } else {
+            if (compareIp6(intIp, ipRange[mid]) >= 0) {
+                if (compareIp6(intIp, ipRange[mid + 1]) < 0) {
+                    return true;
+                } else {
+                    left = mid + 2;
+                }
+            } else {
+                right = mid - 1;
+            }
+        }
+    } while (left < right);
     return false;
 }
 
 function getProxyFromIp6(strIp) {
     var intIp = convertIp6Address(strIp);
 
-    if (isInSubnetIp6Range(subnetIp6RangeList, intIp)) {
+    if (isInIp6RangeList(subnetIp6RangeList, intIp)) {
         return direct;
     }
 

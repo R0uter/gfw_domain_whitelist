@@ -1,12 +1,19 @@
 var test_cases = [
-	1, "a.b.c.d.com",
+    // subnet ips
 	0, "127.0.0.1",
+	0, "::1",
+	0, "fec0::1",
+    // plain hosts
+	0, "localhost",
+    // white domains
 	0, "qq.com",
 	0, "im.qq.com",
 	0, "www.imqq.com",
-	1, "qqq.com",
+    // gfw domains
 	1, "google.com",
-	0, "localhost"
+    // unknown domains
+	1, "qwq.com",
+	1, "a.b.c.d.com"
 ];
 
 function isPlainHostName(host) {
