@@ -34,16 +34,13 @@ var subnetIp6RangeList = [
 var hasOwnProperty = Object.hasOwnProperty;
 
 function check_ipv4(host) {
-    // (TODO: ipv6)
-    // http://home.deds.nl/~aeron/regex/
-
-    var re_ipv4 = /^\d+\.\d+\.\d+\.\d+$/g;
+    var re_ipv4 = /^\d+\.\d+\.\d+\.\d+$/;
     return re_ipv4.test(host);
 }
 
 function check_ipv6(host) {
     // http://home.deds.nl/~aeron/regex/
-    var re_ipv6 = /^((?=.*::)(?!.*::.+::)(::)?([\dA-F]{1,4}:(:|\b)|){5}|([\dA-F]{1,4}:){6})((([\dA-F]{1,4}((?!\3)::|:\b|$))|(?!\2\3)){2}|(((2[0-4]|1\d|[1-9])?\d|25[0-5])\.?\b){4})$/i;
+    var re_ipv6 = /^((?=.*::)(?!.*::.+::)(::)?([\dA-F]{1,4}:(:|\b)|){5}|([\dA-F]{1,4}:){6})((([\dA-F]{1,4}((?!\3)::|:\b|$))|(?!\2\3)){2})$/i;
     return re_ipv6.test(host)
 }
 
