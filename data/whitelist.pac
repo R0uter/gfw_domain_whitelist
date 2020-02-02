@@ -1,4 +1,5 @@
-// if false, use proxy[0] by default
+// if false, use proxy[0] by default,
+// edit function loadBalance to change it!
 var okToLoadBalance = false;
 
 var proxy = [
@@ -28,8 +29,7 @@ var subnetIp4RangeList = [
 ];
 
 var subnetIp6RangeList = [
-  [0x0, 0x0, 0x0, 0x0], [0x0, 0x0, 0x0, 0x1],                                 // ::/128
-  [0x0, 0x0, 0x0, 0x1], [0x0, 0x0, 0x0, 0x2],                                 // ::1/128
+  [0x0, 0x0, 0x0, 0x0], [0x0, 0x0, 0x0, 0x2],                                 // ::/127
   [0xfe800000, 0x0, 0x0, 0x0], [0xfe800000, 0x0, 0xffffffff, 0xffffffff],     // fe80::/64
   [0xfec00000, 0x0, 0x0, 0x0], [0xfec00000, 0xffff, 0xffffffff, 0xffffffff],  // fec0::/48
 ];
@@ -48,7 +48,7 @@ function convertIp4Address(strIp) {
         (bytes[2] << 8) |
         (bytes[3]);
     // javascript simulates the bit operation of 32-bit signed int
-    // so 0x80000000 is a negative number, use ">>>" to fix it
+    // so "1 << 31" is a negative number, use ">>>" to fix it
     return result >>> 0;
 }
 
@@ -93,18 +93,20 @@ function getProxyFromIp4(strIp) {
     return loadBalance();
 }
 
+// don't support ipv4-mapped ipv6 address
 function check_ipv6(host) {
     // http://home.deds.nl/~aeron/regex/
     var re_ipv6 = /^((?=.*::)(?!.*::.+::)(::)?([\dA-F]{1,4}:(:|\b)|){5}|([\dA-F]{1,4}:){6})((([\dA-F]{1,4}((?!\3)::|:\b|$))|(?!\2\3)){2})$/i;
     return re_ipv6.test(host)
 }
 
+// ipv6 format as [0xffff1234, 0xffff1234, 0xffff1234, 0xffff1234]
 function convertIp6Address(strIp) {
     var words = strIp.split(':');
     var pos = words.indexOf('');
     if (pos === 0)
         pos = words.indexOf('', pos + 1);
-    var dwords = [0, 0, 0, 0];
+    var result = [0, 0, 0, 0];
     var len = words.length;
     var index = 0,  // index of ipv6
         wordi = 0;  // index of words
@@ -115,15 +117,15 @@ function convertIp6Address(strIp) {
             var word = words[wordi];
             if (word) {
                 if (index & 0x1)
-                    dwords[index >>> 1] += parseInt(word, 16);
+                    result[index >>> 1] += parseInt(word, 16);
                 else
-                    dwords[index >>> 1] = (parseInt(word, 16) << 16) >>> 0;
+                    result[index >>> 1] = (parseInt(word, 16) << 16) >>> 0;
             }
             index++;
         }
         wordi++;
     } while (wordi < len);
-    return dwords;
+    return result;
 }
 
 function compareIp6(a, b) {
