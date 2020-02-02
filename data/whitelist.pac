@@ -1,6 +1,9 @@
+// if false, use proxy[0] by default,
+// edit function loadBalance to change it!
 var okToLoadBalance = false;
 
 var proxy = [
+    // add more proxies to load-balance!
     __PROXY__,
     "SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081",
     "SOCKS5 127.0.0.1:1082; SOCKS 127.0.0.1:1082",
@@ -16,83 +19,166 @@ var direct = "DIRECT";
 
 var white_domains = __DOMAINS__;
 
+// ip list must in order for matching
 var subnetIp4RangeList = [
-    0, 1,                    // 0.0.0.0/32
-    167772160, 184549376,    // 10.0.0.0/8
-    2886729728, 2887778304,  // 172.16.0.0/12
-    3232235520, 3232301056,  // 192.168.0.0/16
-    2130706432, 2130706688   // 127.0.0.0/24
+  0, 1,                    // 0.0.0.0/32
+  167772160, 184549376,    // 10.0.0.0/8
+  2130706432, 2130706688,  // 127.0.0.0/24
+  2886729728, 2887778304,  // 172.16.0.0/12
+  3232235520, 3232301056   // 192.168.0.0/16
 ];
 
 var subnetIp6RangeList = [
-    0x0n, 0x1n,                  // ::/128
-    0xfe800000000000000000000000000000n, 0xfe80000000000000ffffffffffffffffn,  // fe80::/64
-    0xfec00000000000000000000000000000n, 0xfec000000000ffffffffffffffffffffn,  // fec0::/48
-    0x1n, 0x2n   // ::1/128
+  [0x0, 0x0, 0x0, 0x0], [0x0, 0x0, 0x0, 0x2],                    // ::/127
+  [0xfe800000, 0x0, 0x0, 0x0], [0xfe800000, 0x1, 0x0, 0x0],      // fe80::/64
+  [0xfec00000, 0x0, 0x0, 0x0], [0xfec00001, 0x10000, 0x0, 0x0],  // fec0::/48
 ];
 
 var hasOwnProperty = Object.hasOwnProperty;
 
 function check_ipv4(host) {
-    // (TODO: ipv6)
-    // http://home.deds.nl/~aeron/regex/
-
-    var re_ipv4 = /^\d+\.\d+\.\d+\.\d+$/g;
+    var re_ipv4 = /^\d+\.\d+\.\d+\.\d+$/;
     return re_ipv4.test(host);
-}
-
-function check_ipv6(host) {
-    // http://home.deds.nl/~aeron/regex/
-    var re_ipv6 = /^((?=.*::)(?!.*::.+::)(::)?([\dA-F]{1,4}:(:|\b)|){5}|([\dA-F]{1,4}:){6})((([\dA-F]{1,4}((?!\3)::|:\b|$))|(?!\2\3)){2}|(((2[0-4]|1\d|[1-9])?\d|25[0-5])\.?\b){4})$/i;
-    return re_ipv6.test(host)
 }
 
 function convertIp4Address(strIp) {
     var bytes = strIp.split('.');
-    return (bytes[0] << 24) |
+    var result = (bytes[0] << 24) |
         (bytes[1] << 16) |
         (bytes[2] << 8) |
         (bytes[3]);
+    // javascript simulates the bit operation of 32-bit signed int
+    // so "1 << 31" is a negative number, use ">>>" to fix it
+    return result >>> 0;
 }
 
-function convertIp6Address(strIp) {
-    var hexs = strIp.split(':');
-    var pos = hexs.indexOf("");
-    if (pos === 0) { // ::1
-        pos = hexs.indexOf("", pos + 1);
-    }
-    var hexLen = hexs.length;
-    var result = 0n;
-    var scale = 112n, index = 0;
+function isInIp4RangeList(ipRange, intIp) {
+    if (ipRange.length === 0)
+        return false;
+    var left = 0, right = ipRange.length - 1;
     do {
-        if (pos === index) {
-            scale -= 16n * BigInt(9 - hexs.length)
-        } else {
-            var hex = hexs[index];
-            if (hex !== "" && hex !== "0") {
-                result = result | (BigInt("0x" + hexs[index]) << scale);
+        var mid = Math.floor((left + right) / 2);
+        if (mid & 0x1) {
+            if (intIp >= ipRange[mid - 1]) {
+                if (intIp < ipRange[mid]) {
+                    return true
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                right = mid - 2
             }
-            scale -= 16n;
+        } else {
+            if (intIp >= ipRange[mid]) {
+                if (intIp < ipRange[mid + 1]) {
+                    return true;
+                } else {
+                    left = mid + 2;
+                }
+            } else {
+                right = mid - 1;
+            }
         }
-        index++;
-    } while (index < hexLen);
+    } while (left < right);
+    return false;
+}
+
+function getProxyFromIp4(strIp) {
+    var intIp = convertIp4Address(strIp);
+
+    if (isInIp4RangeList(subnetIp4RangeList, intIp)) {
+        return direct;
+    }
+    // in theory, we can add chnroutes test here.
+    return loadBalance();
+}
+
+// don't support ipv4-mapped ipv6 address
+function check_ipv6(host) {
+    // http://home.deds.nl/~aeron/regex/
+    var re_ipv6 = /^((?=.*::)(?!.*::.+::)(::)?([\dA-F]{1,4}:(:|\b)|){5}|([\dA-F]{1,4}:){6})((([\dA-F]{1,4}((?!\3)::|:\b|$))|(?!\2\3)){2})$/i;
+    return re_ipv6.test(host)
+}
+
+// ipv6 format as [0xffff1234, 0xffff1234, 0xffff1234, 0xffff1234]
+function convertIp6Address(strIp) {
+    var words = strIp.split(':');
+    var pos = words.indexOf('');
+    if (pos === 0)
+        pos = words.indexOf('', pos + 1);
+    var result = [0, 0, 0, 0];
+    var len = words.length;
+    var index = 0,  // index of ipv6
+        wordi = 0;  // index of words
+    do {
+        if (pos === wordi) {
+            index += 9 - len;
+        } else {
+            var word = words[wordi];
+            if (word) {
+                if (index & 0x1)
+                    result[index >>> 1] += parseInt(word, 16);
+                else
+                    result[index >>> 1] = (parseInt(word, 16) << 16) >>> 0;
+            }
+            index++;
+        }
+        wordi++;
+    } while (wordi < len);
     return result;
 }
 
-function isInSubnetIp4Range(ipRange, intIp) {
-    for (var i = 0; i < 10; i += 2) {
-        if (ipRange[i] <= intIp && intIp < ipRange[i + 1])
-            return true;
-    }
+function compareIp6(a, b) {
+    if (a[0] > b[0]) return 1;
+    if (a[0] < b[0]) return -1;
+    if (a[1] > b[1]) return 1;
+    if (a[1] < b[1]) return -1;
+    if (a[2] > b[2]) return 1;
+    if (a[2] < b[2]) return -1;
+    if (a[3] > b[3]) return 1;
+    if (a[3] < b[3]) return -1;
+    return 0;
+}
+
+function isInIp6RangeList(ipRange, intIp) {
+    if (ipRange.length === 0)
+        return false;
+    var left = 0, right = ipRange.length - 1;
+    do {
+        var mid = Math.floor((left + right) / 2);
+        if (mid & 0x1) {
+            if (compareIp6(intIp, ipRange[mid - 1]) >= 0) {
+                if (compareIp6(intIp, ipRange[mid]) < 0) {
+                    return true
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                right = mid - 2
+            }
+        } else {
+            if (compareIp6(intIp, ipRange[mid]) >= 0) {
+                if (compareIp6(intIp, ipRange[mid + 1]) < 0) {
+                    return true;
+                } else {
+                    left = mid + 2;
+                }
+            } else {
+                right = mid - 1;
+            }
+        }
+    } while (left < right);
     return false;
 }
 
-function isInSubnetIp6Range(ipRange, intIp) {
-    for (var i = 0; i < 10; i += 2) {
-        if (ipRange[i] <= intIp && intIp < ipRange[i + 1])
-            return true;
+function getProxyFromIp6(strIp) {
+    var intIp = convertIp6Address(strIp);
+
+    if (isInIp6RangeList(subnetIp6RangeList, intIp)) {
+        return direct;
     }
-    return false;
+
+    return loadBalance();
 }
 
 function isInDomains(domain_dict, host) {
@@ -120,9 +206,11 @@ function isInDomains(domain_dict, host) {
 }
 
 function loadBalance() {
-    // generate a int range from 0 to proxy.length - 1
-    var random = Math.floor(Math.random() * proxy.length);
-    return proxy[random];
+    if (okToLoadBalance) {
+        var random = Math.floor(Math.random() * proxy.length);
+        return proxy[random];
+    }
+    return proxy[0];
 }
 
 function FindProxyForURL(url, host) {
@@ -131,25 +219,16 @@ function FindProxyForURL(url, host) {
     }
 
     if (check_ipv4(host)) {
-        var intIp = convertIp4Address(host);
-
-        if (isInSubnetIp4Range(subnetIp4RangeList, intIp)) {
-            return direct;
-        }
-    } else if (check_ipv6(host)) {
-        var intIp = convertIp6Address(host);
-
-        if (isInSubnetIp4Range(subnetIp6RangeList, intIp)) {
-            return direct;
-        }
-    } else {
-        if (isInDomains(white_domains, host)) {
-            return direct;
-        }
+        return getProxyFromIp4(host);
     }
 
-    if (okToLoadBalance) {
-        return loadBalance();
+    if (check_ipv6(host)) {
+        return getProxyFromIp6(host);
     }
-    return proxy[0];
+
+    if (isInDomains(white_domains, host)) {
+        return direct;
+    }
+
+    return loadBalance();
 }

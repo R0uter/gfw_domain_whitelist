@@ -46,7 +46,7 @@ def get_list():
 
     f = codecs.open('whitelistCache', 'r', 'utf-8')
     for line in f.readlines():
-        l = re.findall(r'(?<==/).+(?=/)', line)
+        l = re.findall(r'(?<==/).+?(?=/)', line)
         whitelist.append('"'+l[0]+'":1,')
     f.close()
 
