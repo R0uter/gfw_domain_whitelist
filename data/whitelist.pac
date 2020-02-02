@@ -47,6 +47,8 @@ function convertIp4Address(strIp) {
         (bytes[1] << 16) |
         (bytes[2] << 8) |
         (bytes[3]);
+    // javascript simulates the bit operation of 32-bit signed int
+    // so 0x80000000 is a negative number, use ">>>" to fix it
     return result >>> 0;
 }
 
