@@ -18,12 +18,13 @@ var direct = "DIRECT";
 
 var white_domains = __DOMAINS__;
 
+// ip list must in order for matching
 var subnetIp4RangeList = [
-    0, 1,                    // 0.0.0.0/32
-    167772160, 184549376,    // 10.0.0.0/8
-    2886729728, 2887778304,  // 172.16.0.0/12
-    3232235520, 3232301056,  // 192.168.0.0/16
-    2130706432, 2130706688   // 127.0.0.0/24
+  0, 1,                    // 0.0.0.0/32
+  167772160, 184549376,    // 10.0.0.0/8
+  2130706432, 2130706688,  // 127.0.0.0/24
+  2886729728, 2887778304,  // 172.16.0.0/12
+  3232235520, 3232301056   // 192.168.0.0/16
 ];
 
 var subnetIp6RangeList = [
@@ -49,18 +50,41 @@ function convertIp4Address(strIp) {
     return result >>> 0;
 }
 
-function isInSubnetIp4Range(ipRange, intIp) {
-    for (var i = 0; i < 10; i += 2) {
-        if (ipRange[i] <= intIp && intIp < ipRange[i + 1])
-            return true;
-    }
+function isInIp4RangeList(ipRange, intIp) {
+    if (ipRange.length === 0)
+        return false;
+    var left = 0, right = ipRange.length - 1;
+    do {
+        var mid = Math.floor((left + right) / 2);
+        if (mid & 0x1) {
+            if (intIp >= ipRange[mid - 1]) {
+                if (intIp < ipRange[mid]) {
+                    return true
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                right = mid - 2
+            }
+        } else {
+            if (intIp >= ipRange[mid]) {
+                if (intIp < ipRange[mid + 1]) {
+                    return true;
+                } else {
+                    left = mid + 2;
+                }
+            } else {
+                right = mid - 1;
+            }
+        }
+    } while (left < right);
     return false;
 }
 
 function getProxyFromIp4(strIp) {
     var intIp = convertIp4Address(strIp);
 
-    if (isInSubnetIp4Range(subnetIp4RangeList, intIp)) {
+    if (isInIp4RangeList(subnetIp4RangeList, intIp)) {
         return direct;
     }
     // in theory, we can add chnroutes test here.
