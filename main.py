@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import os
+import sys
 import re
 import urllib3
 import certifi
@@ -44,7 +45,11 @@ def get_list():
     except:
         print('Get list update failed,use cache to update instead.')
 
-    f = codecs.open('whitelistCache', 'r', 'utf-8')
+    try:
+        f = codecs.open('whitelistCache', 'r', 'utf-8')
+    except IOError:
+        print('Unable to get domain whitelist, exiting...', file=sys.stderr)
+        exit(1)
     for line in f.readlines():
         l = re.findall(r'(?<==/).+?(?=/)', line)
         whitelist.append('"'+l[0]+'":1,')
