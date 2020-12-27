@@ -4,9 +4,11 @@ import os
 import re
 import urllib3
 import certifi
-import codecs
 
 from argparse import ArgumentParser
+
+
+PAC_RULE_FMT = '"{}":1,\n'
 
 
 def parse_args():
@@ -57,43 +59,36 @@ def writefile(input_file, proxy, output_file, rulesfile=None):
         file_obj.write(proxy_content)
 
 
-def get_local_list(filename):
+def reformat(f, fmt):
     whitelist = []
-    try:
-        with open(filename, 'r', encoding='utf-8') as f:
-            for line in f:
-                l = re.findall(r'(?<==/).+?(?=/)', line)
-                if l:
-                    whitelist.append('"{}":1,'.format(l[0]))
-    except IOError:
-        print('Unable to open local rule file, exiting...')
-        exit(1)
+    for line in f:
+        l = re.findall(r'(?<==/).+?(?=/)', line)
+        if l:
+            whitelist.append(fmt.format(l[0]))
     return whitelist
 
 
-def get_online_list():
+def reformat_from_file(filename, fmt):
+    try:
+        with open(filename, 'r', encoding='utf-8') as f:
+            return reformat(f, fmt)
+    except IOError:
+        print('Unable to open local rule file, exiting...')
+        exit(1)
+
+
+def get_online_list(fmt):
     print('Getting domain whitelist...')
     dnsmasq_china_list = 'https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf'
-    whitelist = []
     try:
         content = getList(dnsmasq_china_list)
         content = content.decode('utf-8')
-        f = codecs.open('whitelistCache', 'w', 'utf-8')
-        f.write(content)
-        f.close()
+        with open('whitelistCache', 'w', encoding='utf-8') as f:
+            f.write(content)
     except:
         print('Get list update failed,use cache to update instead.')
 
-    try:
-        f = codecs.open('whitelistCache', 'r', 'utf-8')
-    except IOError:
-        print('Unable to get domain whitelist, exiting...')
-        exit(1)
-
-    for line in f:
-        l = re.findall(r'(?<==/).+?(?=/)', line)
-        whitelist.append('"' + l[0] + '":1,')
-    f.close()
+    whitelist = reformat_from_file('whitelistCache', fmt)
 
     return whitelist
 
@@ -110,11 +105,10 @@ def getList(listUrl):
 
 def final_list(rulesfile):
     if rulesfile is not None:
-        list_result = get_local_list(rulesfile)
+        list_result = reformat_from_file(rulesfile, PAC_RULE_FMT)
     else:
-        list_result = get_online_list()
-    content = '\n'.join(list_result)
-    content = '{\n' + content + '\n"yourdomainhere.com":1\n}'
+        list_result = get_online_list(PAC_RULE_FMT)
+    content = '{\n' + ''.join(list_result) + '"yourdomainhere.com":1\n}'
     print('All done!')
     return content
 
