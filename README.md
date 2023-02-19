@@ -1,59 +1,60 @@
 # GFW White List 
 [![Build Status](https://travis-ci.org/R0uter/gfw_domain_whitelist.svg?branch=master)](https://travis-ci.org/R0uter/gfw_domain_whitelist)
-This PAC file use white list, which contains website can directly access. If some domain are not included, it will access through proxy.
 
-If you use this PAC file, you may need a proxy which not billing with flow. 
+This PAC file uses a white list, which contains websites that can be directly accessed. If some domains are not included, they will access through the proxy.
 
-This white list come from [felixonmars dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)
+If you use this PAC file, you may need a proxy which not bill with the flow. 
+
+This white list comes from [felixonmars dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)
 
 This project location : [https://github.com/R0uter/gfw_domain_whitelist](https://github.com/R0uter/gfw_domain_whitelist)
 
-More infomation
+More information
 -------
 Please go to [WIKI](https://github.com/R0uter/gfw_whitelist/wiki)
 
 ## How to use
 
-**Switch to `gh-pages` branch to [download latest pac file](https://R0uter.github.io/gfw_domain_whitelist/)!**
+**Switch to the `gh-pages` branch to [download the latest pac file](https://R0uter.github.io/gfw_domain_whitelist/)!**
 
-Download the [`whitelist.pac`](https://R0uter.github.io/gfw_domain_whitelist/), edit the server IP and the type of proxy. After that change your browser's config, point to `whitelist.pac`.
+Download the [`whitelist.pac`](https://R0uter.github.io/gfw_domain_whitelist/), and edit the server IP and the proxy type. After that, change your browser's config, and point to `whitelist.pac`.
 
 	var proxy = new Array( "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080;",
-	Change the type of proxy,it also can be 'HTTPS'
+	Change the type of proxy, it also can be 'HTTPS'
     Make sure to change both SOCKS5 and SOCKS
 
 
 ### Use script to generate the PAC file
 
-Excute command `python3 main.py`, `whitelist.pac` will updated. 
+Execute command `python3 main.py`, `whitelist.pac` will be updated. 
 
 
 ### Load-Balance
 
-You can change `okToLoadBalance` value to `true` to use the load balance feature, when you edit `whitelist.pac` you will found three proxy config in there. Only first config will become effective if you leave `okToLoadBalance` maintain `false`, but if you want to use load balance, you need edit all proxy row as well.
+You can change the `okToLoadBalance` value to `true` to use the load balance feature. When you edit `whitelist.pac`, you will find three proxy configs in there. Only the first config will become effective if you leave `okToLoadBalance` maintain `false`, but if you want to use load balance, you need to edit all of the proxy row as well.
 
     "SOCKS5 127.0.0.1:1083; SOCKS 127.0.0.1:1083;",
-    Different port or ip, and do not lose the comma!
+    Different port or IP, and do not lose the comma!
     
 
-As you see, `proxy` is an array, you can add at most ten proxies to load balance! Though three is good enough.
+As you see, `proxy` is an array. You can add at most ten proxies to load balance! Though three is good enough.
 
-There is one more thing you should know that load-balancing is domain-based load balance, so it would not accelorate video or download something. Do not use this feature if your proxies not speed same.
+There is one more thing you should know that load-balancing is domain-based load balance, so it would not accelerate video or download something. Do not use this feature if your proxies are not speed the same.
 
 
-PAC performance (100,000 repeat)
+PAC performance (100,000 repeats)
 ----------------
     Firefox  
     whitelist.pac 50ms 
-    load balabce: whitelist.pac 40ms
+    load balance: whitelist.pac 40ms
 
     Chrome  
     whitelist.pac 70ms
-    load balabce: whitelist.pac 68ms
+    load balance: whitelist.pac 68ms
 
     Safari  
     whitelist.pac 50ms  
-    load balabce: whitelist.pac 44ms  
+    load balance: whitelist.pac 44ms  
 
 Based on 
 ------------
